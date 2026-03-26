@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { getUserProfile } from '@/lib/supabase/user' // <-- Add this import
 
 export async function login(formData: FormData) {
   const supabase = await createClient()
@@ -16,12 +17,20 @@ export async function login(formData: FormData) {
   })
 
   if (error) {
-    // In a production app, we'd handle this more gracefully, but for now we redirect back with an error flag
     redirect('/login?error=Could not authenticate user')
   }
 
+  // --- NEW TRAFFIC COP LOGIC ---
+  const session = await getUserProfile()
+  
   revalidatePath('/', 'layout')
-  redirect('/dashboard') // Send them to the staff portal once logged in!
+
+  // Direct traffic based on role
+  if (session?.profile.role === 'manager') {
+    redirect('/admin')
+  } else {
+    redirect('/dashboard')
+  }
 }
 
 export async function logout() {
