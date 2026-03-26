@@ -12,11 +12,12 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-50 p-4">
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold text-zinc-900">Welcome to the Dashboard! 🎉</h1>
-        <p className="text-zinc-500">You are successfully logged in as: <br/><span className="font-mono text-zinc-800">{user.email}</span></p>
-      </div>
+    <div className="flex flex-col items-center justify-center py-20 space-y-4 text-center">
+      <h1 className="text-4xl font-bold text-zinc-900">Welcome to the Dashboard! 🎉</h1>
+      <p className="text-zinc-500">
+        You are successfully logged in as: <br/>
+        <span className="font-mono text-zinc-800">{user.email}</span>
+      </p>
     </div>
   )
 }
