@@ -10,7 +10,7 @@ A modern, role-based progressive web app built for cafe managers to easily sched
 - **Components:** Shadcn UI (Radix Primitives)
 - **Language:** TypeScript strictly typed via Supabase Database Types
 
-## Current Features (Phase 1 & 2 Complete)
+## Current Features
 
 * **Secure Server-Side Authentication:** Utilises `@supabase/ssr` to handle secure session cookies exclusively on the server, completely hiding auth flow from the client.
 * **Role-Based Access Control (RBAC):** Custom PostgreSQL database triggers automatically provision new users, defaulting them to `staff`. 
@@ -52,24 +52,22 @@ CAFE-ROSTER-PWA/
 ├── proxy.ts               # Next.js 16 Edge Route Protection
 ├── next.config.ts
 └── package.json
-
 ```
 
 ## Getting Started
 
 1. Clone the repository.
 2. Install dependencies:
-```bash
+   ```bash
    npm install
-
-```
-3. Set up your .env.local with your Supabase credentials:
-```bash
-    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
+   ```
+3. Set up your `.env.local` with your Supabase credentials:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
 4. Run the development server:
-```bash
-    npm run dev
-``` 
-5. Open http://localhost:3000 in your browser.  
+   ```bash
+   npm run dev
+   ```
+5. Open http://localhost:3000 in your browser.

@@ -23,3 +23,19 @@ export async function getUserProfile() {
 
   return { user, profile }
 }
+export async function getStaffMembers() {
+  const supabase = await createClient()
+
+  const { data: staff, error } = await supabase
+    .from('profiles')
+    .select('id, name')
+    .eq('role', 'staff')
+    .order('name')
+
+  if (error) {
+    console.error("Error fetching staff:", error)
+    return []
+  }
+
+  return staff
+}
