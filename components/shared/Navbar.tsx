@@ -4,10 +4,10 @@ import { logout } from '@/app/login/actions'
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white">
+    <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <Link href="/dashboard" className="text-xl font-bold tracking-tight text-zinc-900">
+          <Link href="/dashboard" className="text-xl font-bold tracking-tight text-foreground">
             Cafe Roster
           </Link>
         </div>

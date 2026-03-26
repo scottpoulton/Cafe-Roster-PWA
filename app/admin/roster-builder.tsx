@@ -10,7 +10,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-// Define the shape of the data we are receiving from the server
 interface StaffMember {
   id: string
   name: string
@@ -28,17 +27,17 @@ export default function RosterBuilder({ staffList }: RosterBuilderProps) {
     <div className="flex flex-col space-y-6 mt-8">
       
       {/* Control Panel */}
-      <div className="flex flex-col sm:flex-row gap-4 bg-white p-4 rounded-lg border shadow-sm">
+      <div className="flex flex-col sm:flex-row gap-4 bg-card p-4 rounded-lg border shadow-sm">
         
         {/* Date Picker */}
         <div className="flex-1 space-y-2">
-          <h2 className="text-sm font-semibold text-zinc-800">Select Date</h2>
+          <h2 className="text-sm font-semibold text-foreground">Select Date</h2>
           <DatePicker date={selectedDate} setDate={setSelectedDate} />
         </div>
 
         {/* Staff Dropdown */}
         <div className="flex-1 space-y-2">
-          <h2 className="text-sm font-semibold text-zinc-800">Assign Staff</h2>
+          <h2 className="text-sm font-semibold text-foreground">Assign Staff</h2>
           <Select value={selectedStaffId} onValueChange={setSelectedStaffId}>
             <SelectTrigger className="w-full sm:w-[280px]">
               <SelectValue placeholder="Select a team member" />
@@ -50,7 +49,7 @@ export default function RosterBuilder({ staffList }: RosterBuilderProps) {
                 </SelectItem>
               ))}
               {staffList.length === 0 && (
-                <div className="p-2 text-sm text-zinc-500 text-center">No staff found.</div>
+                <div className="p-2 text-sm text-muted-foreground text-center">No staff found.</div>
               )}
             </SelectContent>
           </Select>
@@ -59,9 +58,9 @@ export default function RosterBuilder({ staffList }: RosterBuilderProps) {
       </div>
 
       {/* Roster Display Box */}
-      <div className="bg-zinc-100 border-2 border-dashed border-zinc-200 rounded-lg p-12 text-center text-zinc-500">
+      <div className="bg-muted/10 border-2 border-dashed border-border rounded-lg p-12 text-center text-muted-foreground">
         {selectedDate && selectedStaffId ? (
-          <p>Ready to assign <strong className="text-zinc-800">{staffList.find(s => s.id === selectedStaffId)?.name}</strong> a shift on: <strong className="text-zinc-800">{selectedDate.toDateString()}</strong></p>
+          <p>Ready to assign <strong className="text-foreground">{staffList.find(s => s.id === selectedStaffId)?.name}</strong> a shift on: <strong className="text-foreground">{selectedDate.toDateString()}</strong></p>
         ) : (
           <p>Please select a date and a staff member above.</p>
         )}

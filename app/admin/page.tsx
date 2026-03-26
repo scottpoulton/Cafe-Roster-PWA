@@ -14,9 +14,9 @@ export default async function AdminPage() {
 
   return (
     <div className="flex flex-col py-10 space-y-4">
-      <h1 className="text-4xl font-bold text-zinc-900">Manager Admin Panel</h1>
-      <p className="text-zinc-500">
-        Welcome back, <span className="font-semibold text-zinc-800">{session.profile.name}</span>. Let's build some rosters.
+      <h1 className="text-4xl font-bold text-foreground">Manager Admin Panel</h1>
+      <p className="text-muted-foreground">
+        Welcome back, <span className="font-semibold text-foreground">{session.profile.name}</span>. Let's build some rosters.
       </p>
       
       {/* Pass the staff list directly into our client component */}
