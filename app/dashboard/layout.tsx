@@ -6,7 +6,8 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen bg-zinc-50">
+    // Changed bg-zinc-50 to bg-background here!
+    <div className="min-h-screen bg-background font-sans">
       <Navbar />
       <main className="container mx-auto p-4">
         {children}

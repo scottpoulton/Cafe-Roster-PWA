@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { format } from "date-fns"
 import { DatePicker } from "@/components/ui/date-picker"
 import {
   Select,
@@ -11,6 +12,7 @@ import {
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { createShift } from "./actions"
 
 interface StaffMember {
   id: string
@@ -22,22 +24,37 @@ interface RosterBuilderProps {
 }
 
 export default function RosterBuilder({ staffList }: RosterBuilderProps) {
-  // --- STATE ---
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
   const [selectedStaffId, setSelectedStaffId] = useState<string>("")
   const [startTime, setStartTime] = useState("09:00")
   const [endTime, setEndTime] = useState("17:00")
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // --- ACTIONS ---
-  const handleSaveShift = () => {
-    // We will wire this up to Supabase in the next step!
-    console.log({
-      date: selectedDate,
-      staffId: selectedStaffId,
-      startTime,
-      endTime
+  const handleSaveShift = async () => {
+    if (!selectedDate || !selectedStaffId || !startTime || !endTime) return
+
+    setIsSubmitting(true)
+
+    // Format the date to YYYY-MM-DD for PostgreSQL
+    const formattedDate = format(selectedDate, "yyyy-MM-dd")
+
+    // Call our secure Server Action
+    const result = await createShift({
+      employee_id: selectedStaffId,
+      date: formattedDate,
+      start_time: startTime,
+      end_time: endTime,
     })
-    alert("Shift ready to be saved! (Check your console)")
+
+    setIsSubmitting(false)
+
+    if (result.success) {
+      alert("Shift successfully saved to the database!")
+      // Reset the form for the next entry
+      setSelectedStaffId("")
+    } else {
+      alert(`Error saving shift: ${result.error}`)
+    }
   }
 
   return (
@@ -100,10 +117,10 @@ export default function RosterBuilder({ staffList }: RosterBuilderProps) {
         <div className="pt-2">
           <Button 
             onClick={handleSaveShift}
-            disabled={!selectedDate || !selectedStaffId || !startTime || !endTime}
+            disabled={!selectedDate || !selectedStaffId || !startTime || !endTime || isSubmitting}
             className="w-full sm:w-auto"
           >
-            Save Shift
+            {isSubmitting ? "Saving..." : "Save Shift"}
           </Button>
         </div>
 
