@@ -37,7 +37,8 @@ export default async function DashboardPage() {
         
         {shifts && shifts.length > 0 ? (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {shifts.map((shift) => (
+            {/* ADDED : any TO FIX THE BUILD ERROR */}
+            {shifts.map((shift: any) => (
               <Card key={shift.id}>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg">
