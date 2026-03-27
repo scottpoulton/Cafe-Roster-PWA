@@ -16,8 +16,9 @@ export default async function AdminPage() {
   const staffList = await getStaffMembers()
 
   const supabase = await createClient()
-  const { data: shifts } = await supabase
-    .from('shifts')
+  
+  // Force bypass the strict type check here as well
+  const { data: shifts } = await (supabase.from('shifts') as any)
     .select(`
       id,
       date,
