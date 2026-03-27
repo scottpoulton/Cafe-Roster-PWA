@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 export default function LoginPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-background">
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">Cafe Roster</CardTitle>

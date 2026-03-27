@@ -35,3 +35,21 @@ export async function createShift(payload: ShiftPayload) {
   revalidatePath('/admin')
   return { success: true }
 }
+
+export async function deleteShift(shiftId: string) {
+  const supabase = await createClient()
+
+  const { error } = await supabase
+    .from('shifts')
+    .delete()
+    .eq('id', shiftId)
+
+  if (error) {
+    console.error("Delete Error:", error.message)
+    return { success: false, error: error.message }
+  }
+
+  // Refresh the admin page so the deleted shift disappears instantly
+  revalidatePath('/admin')
+  return { success: true }
+}
