@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import { format, parseISO } from 'date-fns'
 import RosterBuilder from './roster-builder'
 import DeleteButton from './delete-button'
+import EditButton from './edit-button'
 
 export default async function AdminPage() {
   const session = await getUserProfile()
@@ -14,7 +15,6 @@ export default async function AdminPage() {
 
   const staffList = await getStaffMembers()
 
-  // Fetch all shifts AND join the staff member's name from the profiles table
   const supabase = await createClient()
   const { data: shifts } = await supabase
     .from('shifts')
@@ -31,7 +31,6 @@ export default async function AdminPage() {
   return (
     <div className="flex flex-col py-10 space-y-12">
       
-      {/* Header */}
       <div>
         <h1 className="text-4xl font-bold text-foreground">Manager Admin Panel</h1>
         <p className="text-muted-foreground mt-2">
@@ -39,10 +38,8 @@ export default async function AdminPage() {
         </p>
       </div>
       
-      {/* Shift Builder Component */}
       <RosterBuilder staffList={staffList} />
 
-      {/* Master Roster View */}
       <div className="space-y-6 pt-8 border-t border-border">
         <div>
           <h2 className="text-2xl font-semibold text-foreground">Master Roster</h2>
@@ -55,7 +52,6 @@ export default async function AdminPage() {
               <div key={shift.id} className="flex flex-col justify-between p-5 bg-card border border-border rounded-xl shadow-sm">
                 <div>
                   <p className="font-semibold text-foreground text-lg">
-                    {/* Access the joined profile name */}
                     {shift.profiles?.name || 'Unknown Staff'}
                   </p>
                   <p className="text-sm text-muted-foreground">
@@ -70,7 +66,10 @@ export default async function AdminPage() {
                   <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                     {shift.status}
                   </span>
-                  <DeleteButton shiftId={shift.id} />
+                  <div className="flex gap-2">
+                    <EditButton shift={shift} />
+                    <DeleteButton shiftId={shift.id} />
+                  </div>
                 </div>
               </div>
             ))}
@@ -81,7 +80,6 @@ export default async function AdminPage() {
           </div>
         )}
       </div>
-
     </div>
   )
 }

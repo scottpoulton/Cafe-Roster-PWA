@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -12,9 +12,22 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: '#09090b',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1, 
+  userScalable: false,
+}
+
 export const metadata: Metadata = {
   title: "Cafe Roster",
   description: "Role-based progressive web app for cafe managers.",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Cafe Roster",
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +38,6 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      // We added the "dark" class right here!
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
