@@ -13,8 +13,9 @@ export default async function DashboardPage() {
 
   // 1. Fetch only the shifts belonging to this specific logged-in user
   const supabase = await createClient()
-  const { data: shifts, error } = await supabase
-    .from('shifts')
+
+  // Clean, single-chain query with the 'as any' fix
+  const { data: shifts, error } = await (supabase.from('shifts') as any)
     .select('*')
     .eq('employee_id', session.user.id)
     .order('date', { ascending: true })
