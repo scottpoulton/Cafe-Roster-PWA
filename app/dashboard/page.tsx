@@ -18,6 +18,7 @@ export default async function DashboardPage() {
   const { data: shifts, error } = await (supabase.from('shifts') as any)
     .select('*')
     .eq('employee_id', session.user.id)
+    .eq('is_deleted', false)
     .order('date', { ascending: true })
 
   return (

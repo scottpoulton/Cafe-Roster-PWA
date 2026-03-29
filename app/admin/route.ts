@@ -15,6 +15,7 @@ export async function GET() {
       status,
       profiles ( name )
     `)
+    .eq('is_deleted', false)
     .order('date', { ascending: true })
 
   if (error || !shifts) {

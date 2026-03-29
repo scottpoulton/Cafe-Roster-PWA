@@ -63,7 +63,7 @@ export async function deleteShift(shiftId: string) {
   const supabase = await createClient()
 
   const { error } = await (supabase.from('shifts') as any)
-    .delete()
+    .update({ is_deleted: true })
     .eq('id', shiftId)
 
   if (error) {

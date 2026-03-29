@@ -30,6 +30,7 @@ export default async function AdminPage() {
       status,
       profiles ( name )
     `)
+    .eq('is_deleted', false)
     .order('date', { ascending: true })
 
   return (
