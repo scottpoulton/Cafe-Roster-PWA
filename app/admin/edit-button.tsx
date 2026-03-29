@@ -1,3 +1,6 @@
+import { toast } from "sonner" 
+import { useState } from "react"
+
 "use client"
 
 import { useState } from "react"
@@ -24,7 +27,6 @@ export default function EditButton({ shift }: { shift: any }) {
   const handleUpdate = async () => {
     setIsUpdating(true)
     
-    // Call the server action you added in the last step
     const result = await updateShift(shift.id, {
       date,
       start_time: startTime,
@@ -34,9 +36,10 @@ export default function EditButton({ shift }: { shift: any }) {
     setIsUpdating(false)
 
     if (result.success) {
-      setOpen(false) // Close the modal on success
+      toast.success("Shift updated successfully") // <-- Swap alert for toast
+      setOpen(false) 
     } else {
-      alert("Failed to update shift: " + result.error)
+      toast.error(result.error || "Failed to update shift") // <-- Swap alert for toast
     }
   }
 
