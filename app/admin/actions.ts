@@ -32,7 +32,7 @@ export async function createShift(payload: ShiftPayload) {
     // Return the specific validation error message back to the client UI
     return { 
       success: false, 
-      error: validatedFields.error.errors[0].message 
+      error: validatedFields.error.issues[0].message 
     };
   }
 
