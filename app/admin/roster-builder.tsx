@@ -56,6 +56,7 @@ export default function RosterBuilder({ staffList }: RosterBuilderProps) {
     } else {
       toast.error(result.error || "Failed to save shift") // <-- Shows our Zod errors perfectly!
     }
+  }
 
   return (
     <div className="flex flex-col space-y-6 mt-8">

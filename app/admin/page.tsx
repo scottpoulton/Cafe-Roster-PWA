@@ -1,6 +1,4 @@
 import { Button } from '@/components/ui/button' 
-import RosterBuilder from './roster-builder'
-
 import { getUserProfile, getStaffMembers } from '@/lib/supabase/user'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
