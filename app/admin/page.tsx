@@ -1,3 +1,6 @@
+import { Button } from '@/components/ui/button' 
+import RosterBuilder from './roster-builder'
+
 import { getUserProfile, getStaffMembers } from '@/lib/supabase/user'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
@@ -32,11 +35,19 @@ export default async function AdminPage() {
   return (
     <div className="flex flex-col py-10 space-y-12">
       
-      <div>
-        <h1 className="text-4xl font-bold text-foreground">Manager Admin Panel</h1>
-        <p className="text-muted-foreground mt-2">
-          Welcome back, <span className="font-semibold text-foreground">{session.profile.name}</span>. Let's build some rosters.
-        </p>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+        <div>
+          <h1 className="text-4xl font-bold text-foreground">Manager Admin Panel</h1>
+          <p className="text-muted-foreground mt-2">
+            Welcome back, <span className="font-semibold text-foreground">{session.profile.name}</span>. Let's build some rosters.
+          </p>
+        </div>
+        
+        <Button asChild variant="outline">
+          <a href="/admin/export" download>
+            Export to CSV
+          </a>
+        </Button>
       </div>
       
       <RosterBuilder staffList={staffList} />
