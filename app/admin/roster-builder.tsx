@@ -1,3 +1,5 @@
+import { toast } from "sonner"
+
 "use client"
 
 import { useState } from "react"
@@ -49,13 +51,11 @@ export default function RosterBuilder({ staffList }: RosterBuilderProps) {
     setIsSubmitting(false)
 
     if (result.success) {
-      alert("Shift successfully saved to the database!")
-      // Reset the form for the next entry
+      toast.success("Shift saved successfully") 
       setSelectedStaffId("")
     } else {
-      alert(`Error saving shift: ${result.error}`)
+      toast.error(result.error || "Failed to save shift") // <-- Shows our Zod errors perfectly!
     }
-  }
 
   return (
     <div className="flex flex-col space-y-6 mt-8">
