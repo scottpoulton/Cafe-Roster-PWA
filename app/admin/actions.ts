@@ -97,3 +97,19 @@ export async function updateShift(
   revalidatePath('/admin')
   return { success: true }
 }
+
+export async function updateTimesheetStatus(timesheetId: string, newStatus: 'approved' | 'rejected') {
+  const supabase = await createClient()
+
+  const { error } = await (supabase.from('timesheets') as any)
+    .update({ status: newStatus })
+    .eq('id', timesheetId)
+
+  if (error) {
+    console.error("Timesheet Update Error:", error.message)
+    return { success: false, error: error.message }
+  }
+
+  revalidatePath('/admin')
+  return { success: true }
+}
